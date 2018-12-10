@@ -152,8 +152,8 @@
 					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="MaxParticipationEntry" label="Max Participation (%)" parameterRef="MaxParticipation"/>
 				</lay:StrategyPanel>
 				<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
-					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="AggressionEntry" label="Take Profit (%)" parameterRef="TakeProfit"/>
-					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="StackDepthEntry" label="Stop Loss (%)" parameterRef="StopLoss"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="TakeProfitEntry" label="Take Profit (%)" parameterRef="TakeProfit"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="StopLossEntry" label="Stop Loss (%)" parameterRef="StopLoss"/>
 				</lay:StrategyPanel>
 			</lay:StrategyPanel>
 		</lay:StrategyLayout>
@@ -175,8 +175,8 @@
 					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="MaxParticipationEntry" label="Max Participation (%)" parameterRef="MaxParticipation"/>
 				</lay:StrategyPanel>
 				<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
-					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="AggressionEntry" label="Take Profit (%)" parameterRef="TakeProfit"/>
-					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="StackDepthEntry" label="Stop Loss (%)" parameterRef="StopLoss"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="TakeProfitEntry" label="Take Profit (%)" parameterRef="TakeProfit"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="StopLossEntry" label="Stop Loss (%)" parameterRef="StopLoss"/>
 				</lay:StrategyPanel>
 			</lay:StrategyPanel>
 		</lay:StrategyLayout>
