@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    - - - - - - - - - - - - - - - - - - - - - - - - - -
+    Routefire FIX ATDL definitions.
+    (C) 2018 Routefire, Inc. 
+    All rights reserved.
+    https://routefire.io
+    - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Questions:
+1. We repeated start and end time (tags 126 and 168, which are standard tags)
+2. Increments, spinners, and text fields 
+
+-->
+<Strategies xmlns="http://www.fixprotocol.org/FIXatdl-1-1/Core" xmlns:val="http://www.fixprotocol.org/FIXatdl-1-1/Validation" xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-1/Layout" xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-1/Flow" xmlns:tz="http://www.fixprotocol.org/FIXatdl-1-1/Timezones" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-1/Core fixatdl-core-1-1.xsd" strategyIdentifierTag="847" versionIdentifierTag="7621">
+	<!-- ************************ -->
+	<!-- ******* TWAP ********  -->
+	<!-- ************************ -->
+	<Strategy name="TWAP" uiRep="TWAP" wireValue="1001" version="1" fixMsgType="D" providerID="RF">
+		<!-- Parameter Section -->
+		<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="126" use="required">
+			<Description>Current Time</Description>
+		</Parameter>
+		<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="168" use="required" maxValue="23:59:59" localMktTz="America/New_York">
+			<Description>Target End Time</Description>
+		</Parameter>
+		<Parameter name="IWouldPrice" xsi:type="Float_t" fixTag="8004" use="optional" />
+		<Parameter name="ActiveBackfill" xsi:type="Int_t" fixTag="8001" use="optional" minValue="0" maxValue="100"/>
+		<Parameter name="MaxParticipation" xsi:type="Int_t" fixTag="8002" use="optional" minValue="0" maxValue="100"/>
+		<Parameter name="Aggression" xsi:type="Int_t" fixTag="8003" use="optional" minValue="0" maxValue="100"/>
+		<!-- Layout Section -->
+		<lay:StrategyLayout>
+			<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+				<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+					<lay:Control xsi:type="lay:Clock_t" ID="StartTimeClock" label="Start Time" parameterRef="StartTime" initValue="09:30:00" initValueMode="1" localMktTz="America/New_York"/>
+					<lay:Control xsi:type="lay:Clock_t" ID="EndTimeClock" label="End Time" parameterRef="EndTime" initValue="16:00:00" localMktTz="America/New_York"/>
+					<lay:Control xsi:type="lay:TextField_t" ID="IWouldPriceEntry" label="I Would Price" parameterRef="IWouldPrice"/>
+				</lay:StrategyPanel>
+				<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="ActiveBackfillEntry" label="Active Backfill (%)" parameterRef="ActiveBackfill"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="MaxParticipationEntry" label="Max Participation (%)" parameterRef="MaxParticipation"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="AggressionEntry" label="Aggression (%)" parameterRef="Aggression"/>
+				</lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+		<!-- Validation Section -->
+		<val:StrategyEdit errorMessage="End Time should be later than Start Time">
+			<val:Edit field="EndTime" operator="GT" field2="StartTime"/>
+		</val:StrategyEdit>
+	</Strategy>
+	<!-- ************************ -->
+	<!-- ******* VWAP ********  -->
+	<!-- ************************ -->
+	<Strategy name="VWAP" uiRep="VWAP" wireValue="1" version="1" fixMsgType="D" providerID="RF">
+		<!-- Parameter Section -->
+		<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="126" use="required">
+			<Description>Current Time</Description>
+		</Parameter>
+		<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="168" use="required" maxValue="23:59:59" localMktTz="America/New_York">
+			<Description>Target End Time</Description>
+		</Parameter>
+		<Parameter name="IWouldPrice" xsi:type="Float_t" fixTag="8004" use="optional" />
+		<Parameter name="ActiveBackfill" xsi:type="Int_t" fixTag="8001" use="optional" minValue="0" maxValue="100"/>
+		<Parameter name="MaxParticipation" xsi:type="Int_t" fixTag="8002" use="optional" minValue="0" maxValue="100"/>
+		<Parameter name="Aggression" xsi:type="Int_t" fixTag="8003" use="optional" minValue="0" maxValue="100"/>
+		<!-- Layout Section -->
+		<lay:StrategyLayout>
+			<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+				<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+					<lay:Control xsi:type="lay:Clock_t" ID="StartTimeClock" label="Start Time" parameterRef="StartTime" initValue="09:30:00" initValueMode="1" localMktTz="America/New_York"/>
+					<lay:Control xsi:type="lay:Clock_t" ID="EndTimeClock" label="End Time" parameterRef="EndTime" initValue="16:00:00" localMktTz="America/New_York"/>
+					<lay:Control xsi:type="lay:TextField_t" ID="IWouldPriceEntry" label="I Would Price" parameterRef="IWouldPrice"/>
+				</lay:StrategyPanel>
+				<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="ActiveBackfillEntry" label="Active Backfill (%)" parameterRef="ActiveBackfill"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="MaxParticipationEntry" label="Max Participation (%)" parameterRef="MaxParticipation"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="AggressionEntry" label="Aggression (%)" parameterRef="Aggression"/>
+				</lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+		<!-- Validation Section -->
+		<val:StrategyEdit errorMessage="End Time should be later than Start Time">
+			<val:Edit field="EndTime" operator="GT" field2="StartTime"/>
+		</val:StrategyEdit>
+	</Strategy>
+	<!-- ************************ -->
+	<!-- ******* PVOL ********  -->
+	<!-- ************************ -->
+	<Strategy name="PVOL" uiRep="PVOL" wireValue="2" version="1" fixMsgType="D" providerID="RF">
+		<!-- Parameter Section -->
+		<Parameter name="TargetParticipation" xsi:type="Int_t" fixTag="849" use="optional" minValue="0" maxValue="100"/>
+		<Parameter name="StackDepth" xsi:type="Int_t" fixTag="8002" use="optional" minValue="0" maxValue="100"/>
+		<Parameter name="Aggression" xsi:type="Int_t" fixTag="8003" use="optional" minValue="0" maxValue="100"/>
+		<Parameter name="IWouldPrice" xsi:type="Float_t" fixTag="8004" use="optional" />
+		<!-- Layout Section -->
+		<lay:StrategyLayout>
+			<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+				<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+					<lay:Control xsi:type="lay:TextField_t" ID="IWouldPriceEntry" label="I Would Price" parameterRef="IWouldPrice"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="TargetParticipationEntry" label="Target Participation (%)" parameterRef="TargetParticipation"/>
+				</lay:StrategyPanel>
+				<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="StackDepthEntry" label="Stack Depth (%)" parameterRef="StackDepth"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="AggressionEntry" label="Aggression (%)" parameterRef="Aggression"/>
+				</lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+	</Strategy>
+	<!-- ************************ -->
+	<!-- ********* ISO ********** -->
+	<!-- ************************ -->
+	<Strategy name="ISO" uiRep="ISO" wireValue="1002" version="1" fixMsgType="D" providerID="RF">
+		<!-- Parameter Section -->
+		<Parameter name="IWouldPrice" xsi:type="Float_t" fixTag="8004" use="optional" />
+		<Parameter name="ActiveBackfill" xsi:type="Int_t" fixTag="8001" use="optional" minValue="0" maxValue="100"/>
+		<!-- Layout Section -->
+		<lay:StrategyLayout>
+			<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+				<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+					<lay:Control xsi:type="lay:TextField_t" ID="IWouldPriceEntry" label="I Would Price" parameterRef="IWouldPrice"/>
+				</lay:StrategyPanel>
+				<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="ActiveBackfillEntry" label="Active Backfill (%)" parameterRef="ActiveBackfill"/>
+				</lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+	</Strategy>
+	<!-- ************************ -->
+	<!-- ******** FAST ********** -->
+	<!-- ************************ -->
+	<Strategy name="FAST" uiRep="FAST" wireValue="1005" version="1" fixMsgType="D" providerID="RF">
+		<!-- Parameter Section -->
+		<Parameter name="EntryPrice" xsi:type="Float_t" fixTag="8004" use="optional" />
+		<!-- Layout Section -->
+		<lay:StrategyLayout>
+			<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+				<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+					<lay:Control xsi:type="lay:TextField_t" ID="EntryPriceEntry" label="Entry Price" parameterRef="EntryPrice"/>
+				</lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+	</Strategy>
+	<!-- ************************ -->
+	<!-- ********* ULMT ********* -->
+	<!-- ************************ -->
+	<Strategy name="ULMT" uiRep="ULMT" wireValue="1003" version="1" fixMsgType="D" providerID="RF">
+		<!-- Parameter Section -->
+		<Parameter name="MaxParticipation" xsi:type="Int_t" fixTag="8001" use="optional" minValue="0" maxValue="100"/>
+		<Parameter name="TakeProfit" xsi:type="Float_t" fixTag="8002" use="optional" minValue="0.0" maxValue="100.0"/>
+		<Parameter name="StopLoss" xsi:type="Float_t" fixTag="8003" use="optional" minValue="0.0" maxValue="100.0"/>
+		<Parameter name="EntryPrice" xsi:type="Float_t" fixTag="8004" use="required" />
+		<!-- Layout Section -->
+		<lay:StrategyLayout>
+			<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+				<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+					<lay:Control xsi:type="lay:TextField_t" ID="EntryPriceEntry" label="Entry Price" parameterRef="EntryPrice"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="MaxParticipationEntry" label="Max Participation (%)" parameterRef="MaxParticipation"/>
+				</lay:StrategyPanel>
+				<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="AggressionEntry" label="Take Profit (%)" parameterRef="TakeProfit"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="StackDepthEntry" label="Stop Loss (%)" parameterRef="StopLoss"/>
+				</lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+	</Strategy>
+	<!-- ************************ -->
+	<!-- ********* RLMT ********* -->
+	<!-- ************************ -->
+	<Strategy name="RLMT" uiRep="RLMT" wireValue="1004" version="1" fixMsgType="D" providerID="RF">
+		<!-- Parameter Section -->
+		<Parameter name="MaxParticipation" xsi:type="Int_t" fixTag="8001" use="optional" minValue="0" maxValue="100"/>
+		<Parameter name="TakeProfit" xsi:type="Float_t" fixTag="8002" use="optional" minValue="0.0" maxValue="100.0"/>
+		<Parameter name="StopLoss" xsi:type="Float_t" fixTag="8003" use="optional" minValue="0.0" maxValue="100.0"/>
+		<Parameter name="EntryPrice" xsi:type="Float_t" fixTag="8004" use="required" />
+		<!-- Layout Section -->
+		<lay:StrategyLayout>
+			<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+				<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+					<lay:Control xsi:type="lay:TextField_t" ID="EntryPriceEntry" label="Entry Price" parameterRef="EntryPrice"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="1"  ID="MaxParticipationEntry" label="Max Participation (%)" parameterRef="MaxParticipation"/>
+				</lay:StrategyPanel>
+				<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="AggressionEntry" label="Take Profit (%)" parameterRef="TakeProfit"/>
+					<lay:Control xsi:type="lay:SingleSpinner_t" increment="0.1"  ID="StackDepthEntry" label="Stop Loss (%)" parameterRef="StopLoss"/>
+				</lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+	</Strategy>
+</Strategies>
