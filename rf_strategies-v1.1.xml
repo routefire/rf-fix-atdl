@@ -6,11 +6,6 @@
     All rights reserved.
     https://routefire.io
     - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-Questions:
-1. We repeated start and end time (tags 126 and 168, which are standard tags)
-2. Increments, spinners, and text fields 
-
 -->
 <Strategies xmlns="http://www.fixprotocol.org/FIXatdl-1-1/Core" xmlns:val="http://www.fixprotocol.org/FIXatdl-1-1/Validation" xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-1/Layout" xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-1/Flow" xmlns:tz="http://www.fixprotocol.org/FIXatdl-1-1/Timezones" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-1/Core fixatdl-core-1-1.xsd" strategyIdentifierTag="847" versionIdentifierTag="7621">
 	<!-- ************************ -->
