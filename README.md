@@ -4,6 +4,14 @@ This repository contains bindings for the Routefire algorithm suite in the [fixA
 
 Please contact us via [our website](https://routefire.io) with questions or comments.
 
+## Running validation
+
+From the repository root, running `validation/validate.sh` will validate the Routefire strategy definition against the schema definitions provided by the FIX Protocol organization.
+
+## Requirements and dependencies
+
+The only requirement for running the validation script is `xmllint`.
+
 ## Contributing
 
 We welcome contributions from the community to improve our work. Technical changes can be requested by submitting a pull request.
